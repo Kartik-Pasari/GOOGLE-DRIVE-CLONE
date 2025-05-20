@@ -1,24 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
+  RedirectToSignIn,
   SignedIn,
   SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,11 +24,24 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <SignInButton>
-        <html lang="en">
-          <body className={geistSans.className}>{children}</body>
-        </html>
-      </SignInButton>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className}>
+          <SignedIn>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+              storageKey="google-drive"
+            >
+              {children}
+            </ThemeProvider>
+          </SignedIn>
+          <SignedOut>
+            <RedirectToSignIn />
+          </SignedOut>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
