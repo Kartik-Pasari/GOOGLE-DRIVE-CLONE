@@ -17,8 +17,8 @@ const Navbar = () => {
   return (
     <div
       className={clsx(
-        "h-[10vh] fixed left-0 top-0 right-0 z-30",
-        theme === "dark" ? "bg-[#1F1F1F]" : "bg-[#F6F9FC]"
+        "h-[8vh] fixed left-0 top-0 right-0 z-50 border-b",
+        theme === "dark" ? "bg-[#1F1F1F]" : "bg-[#ebedf0]"
       )}
     >
       <div className="flex items-center justify-between my-4 mx-6">
